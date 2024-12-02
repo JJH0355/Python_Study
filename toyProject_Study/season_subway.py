@@ -1,5 +1,6 @@
 import csv
 import matplotlib.pyplot as plt
+import numpy as np
 
 # csv 파일
 file_path = {
@@ -135,10 +136,31 @@ for year in year_chart_data:
     
 # 그래프 출력
 # 출력할 데이터의 가로, 세로 길이 설정
-plt.figure(figsize=(10,5))
+plt.figure(figsize=(12,8))
+
+# 막대의 너비와 x축 위치
+bar_width = 0.15
+x = np.arange(len(seanson))
+
+# 그래프 색
+colors = ['#98FB98', '#90EE90', '#32CD32', '#006400']
 
 # 막대 그래프는 plt.bar을 사용
-plt.bar(seanson, year_chart_data["2020"])
+plt.bar(x-bar_width, year_chart_data["2020"], width=bar_width, label="2020", color=colors[0])
+plt.bar(x, year_chart_data["2021"], width=bar_width, label="2021", color=colors[1])
+plt.bar(x+bar_width, year_chart_data["2022"], width=bar_width, label="2022", color=colors[2])
+plt.bar(x+(2*bar_width), year_chart_data["2023"], width=bar_width, label="2023", color=colors[3])
+
+# 범례 표시
+# 왼쪽 위에 표시
+plt.legend(loc='upper left')
+
+# y축 범위 설정 (높이를 줄임)
+plt.ylim(0, 1000000000)
+
+# x값 라벨 붙임
+# 위치, 붙일 라벨
+plt.xticks(x + bar_width / 2, seanson)
 
 # 타이틀
 plt.title("Seasonal Subway Traffic")
